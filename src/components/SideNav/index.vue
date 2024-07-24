@@ -4,30 +4,35 @@ import { ref } from 'vue'
 import MenuItem from './MenuItem.vue'
 
 // Constants
-const menu = ref<{ label: string, icon: string, hover: boolean}[]>([
+const menu = ref<{ id: string, label: string, icon: string, hover: boolean}[]>([
   {
+    id: 'home',
     label: 'Today',
-    icon: 'mdi-clipboard-outline',
+    icon: 'content_paste',
     hover: false,
   },
   {
+    id: 'venue',
     label: 'All Events',
-    icon: 'mdi-star-four-points',
+    icon: 'star',
     hover: false,
   },
   {
+    id: 'contacts',
     label: 'Contacts ',
-    icon: 'mdi-account-circle-outline',
+    icon: 'account_circle',
     hover: false,
   },
   {
+    id: 'finances',
     label: 'Finances',
-    icon: 'mdi-currency-gbp',
+    icon: 'currency_pound',
     hover: false,
   },
   {
+    id: 'venue-management',
     label: 'Venue Management',
-    icon: 'mdi-home',
+    icon: 'home',
     hover: false,
   },
 ])
@@ -35,12 +40,12 @@ const menu = ref<{ label: string, icon: string, hover: boolean}[]>([
 const footerMenu = ref<{ label: string, icon: string, hover: boolean}[]>([
   {
     label: 'Search',
-    icon: 'mdi-magnify',
+    icon: 'search',
     hover: false,
   },
   {
     label: 'Today',
-    icon: 'mdi-information-slab-circle-outline',
+    icon: 'info',
     hover: false,
   },
 ])
@@ -54,10 +59,14 @@ const openNav = ref<boolean>(false)
     :class="[{'sidenav--open': openNav}]"
     class="sidenav"
   >
-    <img
-      :src="logo"
+    <RouterLink
       class="sidenav__logo"
+      to="/home"
     >
+      <img
+        :src="logo"
+      >
+    </RouterLink>
     <div class="sidenav__content">
       <div class="sidenav__menu">
         <MenuItem
@@ -80,39 +89,38 @@ const openNav = ref<boolean>(false)
       class="sidenav__opener"
       @click="openNav = !openNav"
     >
-      <i
-        :class="[{'mdi-chevron-right': !openNav, 'mdi-chevron-left': openNav}]"
-        class="sidenav__opener__icon mdi"
-      />
+      <i class="sidenav__opener__icon material-symbols-outlined">
+        {{ openNav ? 'chevron_left' : 'chevron_right' }}
+      </i>
     </button>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .sidenav {
-  border-inline-end: .0625rem solid var(--border);
-  block-size: 100%;
-  padding-inline: .25rem;
-  padding-block:  1.5rem;
-  inline-size: 3.5rem;
+  position: relative;
   display: flex;
   flex-direction: column;
-  position: relative;
+  block-size: 100%;
+  border-inline-end: .0625rem solid var(--border);
+  inline-size: 3.5rem;
+  padding-block:  1.5rem;
+  padding-inline: .25rem;
   transition: all 0.3s ease-in-out;
 
   // Opener
   &__opener {
     position: absolute;
-    inset-block-start: 6.25rem;
-    inset-inline-end: 0;
-    background: var(--shark);
-    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: .0625rem solid var(--border);
+    border-radius: 50%;
+    background: var(--shark);
     block-size: 1.5rem;
     inline-size: 1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    inset-block-start: 6.25rem;
+    inset-inline-end: 0;
     margin-inline-end: -0.75rem;
 
     &__icon {
@@ -122,25 +130,27 @@ const openNav = ref<boolean>(false)
 
   // Logo
   &__logo {
+    display: flex;
+    justify-content: center;
     max-block-size: 2.625rem;
   }
 
   // Content
   &__content {
     display: flex;
-    justify-content: space-between;
-    flex-direction: column;
     flex: 2;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   // Menu
   &__menu {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: flex-start;
-    padding-inline: .5rem;
+    justify-content: flex-start;
     margin-block-start: 3.75rem;
+    padding-inline: .5rem;
 
     &--footer {
       margin-block-start: 0;

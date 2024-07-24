@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import Venues from '@/views/venues/index.vue'
+import VenueDetail from '@/views/venues/VenueDetail.vue'
 </script>
 
 <template>
-  <DefaultLayout class="home">
+  <DefaultLayout class="venue-detail">
     <template #header>
       <TopBar
-        title="All Venues"
-        class="home__topbar"
+        title="Venue"
+        class="venue-detail__topbar"
+        inner
       />
     </template>
-    <Venues />
+    <VenueDetail />
   </DefaultLayout>
 </template>
 
 <style lang="scss" scoped>
-.home {
+.venue-detail {
   &__topbar {
     :deep(h3) {
       @media (width > 64rem) {

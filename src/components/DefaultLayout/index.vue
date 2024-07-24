@@ -11,20 +11,27 @@
         <slot />
       </div>
     </main>
+    <footer class="layout__footer">
+      <MobileNavbar />
+    </footer>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .layout {
+  display: flex;
+  overflow: hidden;
+  justify-content: space-between;
   background: var(--background);
   block-size: 100%;
-  overflow: hidden;
-  display: flex;
-  justify-content: space-between;
 
   // Sidenav
   &__sidenav {
     block-size: 100%;
+
+    @media (width <= 37.5rem) {
+      display: none;
+    }
   }
 
   // Main
@@ -32,16 +39,31 @@
     flex: 2;
   }
 
-  // Header
-  &__header {
-    background: var(--primary);
-    block-size: 3.5rem;
-  }
-
   // Content
   &__content {
     overflow: auto;
-    padding: 3rem;
+    block-size: calc(100% - 3.5rem);
+    padding-block: 2rem;
+    padding-inline: 3rem;
+
+    @media (width <= 37.5rem) {
+      padding-block-end: 8rem;
+      padding-inline: 1rem;
+    }
+  }
+
+  // Footer
+  &__footer {
+    position: fixed;
+    z-index: 2;
+    display: none;
+    inline-size: 100%;
+    inset-block-end: 0;
+    inset-inline-start: 0;
+
+    @media (width <= 37.5rem) {
+      display: block;
+    }
   }
 }
 </style>

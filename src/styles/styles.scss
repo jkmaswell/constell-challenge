@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Space+Grotesk:wght@300..700&display=swap');
+@import 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Space+Grotesk:wght@300..700&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200';
 
 :root {
   // Colors
@@ -9,11 +10,15 @@
   // Variables
   --primary: #17171D;
   --background: #E2E2E2;
+  --secondary: #EFEFEF;
   --border: #D2D2D2;
+  --text-primary: #17171D;
+  --text-secondary: #5F5F5F;
+  --error: #F00;
 }
 
 ::-webkit-scrollbar {
-  background: var(--shark);
+  background: var(--background);
   block-size: .375rem;
   border-end-end-radius: .875rem;
   border-start-end-radius: .875rem;
@@ -28,7 +33,7 @@
 /* Handle */
 ::-webkit-scrollbar-thumb {
   border-radius: 0.375rem;
-  background: var(--gray);
+  background: var(--shark);
 }
 
 ::-webkit-scrollbar-corner {
@@ -43,9 +48,9 @@ body {
 
 body {
   * {
-    font-family: 'Space Grotesk', sans-serif;
-    color: var(--primary);
     box-sizing: border-box;
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
   }
 }
 
@@ -53,4 +58,49 @@ button {
   border: none;
   background: none;
   cursor: pointer;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Cormorant Infant', sans-serif;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-block-end: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+label {
+  display: block;
+  color: var(--text-secondary);
+  font-size: .75rem;
+  font-weight: 300;
+  margin-block-end: 1rem;
+
+  @media (width <= 64rem) {
+    font-size: .6875rem;
+  }
+
+  @media (width <= 37.5rem) {
+    font-size: .625rem;
+  }
+}
+
+.material-symbols-outlined {
+  display: inline-block;
+  direction: ltr;
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-size: 1.25rem;  /* Preferred icon size */
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+  line-height: 1;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
 }

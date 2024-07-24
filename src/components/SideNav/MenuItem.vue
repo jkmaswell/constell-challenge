@@ -40,9 +40,11 @@ onMounted(() => {
     @mouseleave="itemModel.hover = false"
   >
     <i
-      :class="itemModel.hover ? 'mdi-star-four-points-outline' : itemModel.icon"
-      class="mdi menu-item__icon"
-    />
+      :class="[{'menu-item__icon--filled': itemModel.hover}]"
+      class="material-symbols-outlined menu-item__icon"
+    >
+      {{ itemModel.hover ? 'star_half' : itemModel.icon }}
+    </i>
     <span
       :class="[{'menu-item__text--visible': props?.openNav}]"
       class="menu-item__text"
@@ -61,25 +63,25 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .menu-item {
+  position: relative;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: flex-start;
   block-size: 1.5rem;
-  margin-block: 1rem;
   font-size: .9375rem;
   inline-size: 100%;
+  margin-block: 1rem;
   padding-inline: .5rem;
-  position: relative;
 
   &__icon {
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
 
   &__text,
   &__tooltip {
     opacity: 0;
-    visibility: hidden;
     transition: all 0.3s ease-in-out;
+    visibility: hidden;
 
     &--visible {
       opacity: 1;
@@ -94,16 +96,16 @@ onMounted(() => {
 
   &__tooltip {
     position: absolute;
+    border: .0625rem solid var(--primary);
+    border-radius: 2.5rem;
+    background: var(--background);
+    font-size: .75rem;
     inset-block-start: 50%;
     inset-inline-start: 100%;
-    white-space: nowrap;
-    transform: translateY(-50%);
-    background: var(--background);
-    border-radius: 2.5rem;
-    border: .0625rem solid var(--primary);
-    padding-inline: 1rem;
     padding-block: 0.5rem;
-    font-size: .75rem;
+    padding-inline: 1rem;
+    transform: translateY(-50%);
+    white-space: nowrap;
   }
 }
 </style>
