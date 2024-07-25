@@ -21,10 +21,10 @@
   "contacts": [
     {
       "id": "1000",
-      "fullName": "Staffy de Nielden",
+      "fullName": "Staffy de Nielden Two",
       "displayName": "Staffy",
       "initials": "SN",
-      "role": "Accountant",
+      "role": "Singer",
       "email": "staff_1@venue.com",
       "phoneNumber": "68872901",
       "phoneCountryPrefix": "+31",

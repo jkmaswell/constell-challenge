@@ -65,7 +65,7 @@ const deleteContact = () => {
           {{ props?.item?.displayName }}
         </span>
         <span class="contact-item__info__role">
-          {{ props?.item?.functionName }}
+          {{ props?.item?.role }}
         </span>
       </div>
       <div class="contact-item__info__row">
@@ -76,30 +76,28 @@ const deleteContact = () => {
           class="contact-item__info__email"
           @click.stop="copyToClipboard(props?.item?.email)"
         >
-          {{ props?.item?.email }}
+          {{ props?.item?.email }} |
         </span>
         <span
           class="contact-item__info__phone"
           @click.stop="copyToClipboard(formattedPhoneNumber)"
         >
-          | {{ formattedPhoneNumber }}
+          {{ formattedPhoneNumber }}
         </span>
       </div>
     </div>
     <span class="contact-item__role">
-      {{ props?.item?.functionName }}
+      {{ props?.item?.role }}
     </span>
-    <div
-      class="contact-item__email"
-      @click.stop="copyToClipboard(props?.item?.email)"
-    >
-      {{ props?.item?.email }}
+    <div class="contact-item__email">
+      <span @click.stop="copyToClipboard(props?.item?.email)">
+        {{ props?.item?.email }}
+      </span>
     </div>
-    <div
-      class="contact-item__phone"
-      @click.stop="copyToClipboard(formattedPhoneNumber)"
-    >
-      {{ formattedPhoneNumber }}
+    <div class="contact-item__phone">
+      <span @click.stop="copyToClipboard(formattedPhoneNumber)">
+        {{ formattedPhoneNumber }}
+      </span>
     </div>
     <div class="contact-item__teams">
       <span
@@ -125,7 +123,7 @@ const deleteContact = () => {
 <style lang="scss" scoped>
 .contact-item {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   padding: 1.3rem;
   cursor: pointer;
@@ -140,6 +138,11 @@ const deleteContact = () => {
     inline-size: 2rem;
     margin-inline-end: 0.5rem;
     object-fit: cover;
+
+    @media (width <= 37.5rem) {
+      block-size: 1.5rem;
+      inline-size: 1.5rem;
+    }
   }
 
   // Info
@@ -149,7 +152,6 @@ const deleteContact = () => {
     font-size: .875rem;
     gap: .1875rem;
     max-inline-size: 18.75rem;
-    min-inline-size: 12.5rem;
 
     &__row {
       display: flex;
@@ -183,6 +185,12 @@ const deleteContact = () => {
 
       @media (width <= 64rem) {
         display: block;
+      }
+    }
+
+    &__email {
+      @media (width <= 37.5rem) {
+        display: none;
       }
     }
   }
@@ -261,6 +269,16 @@ const deleteContact = () => {
 
   &:hover {
     background: var(--secondary);
+  }
+
+  @media (width <= 64rem) {
+    padding-block: 0.9rem;
+    padding-inline: 1.2rem;
+  }
+
+  @media (width <= 37.5rem) {
+    padding-block: 0.8rem;
+    padding-inline: 1rem;
   }
 }
 </style>

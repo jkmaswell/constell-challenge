@@ -3,7 +3,10 @@ import ContactDetail from '@/views/people/ContactDetail.vue'
 </script>
 
 <template>
-  <DefaultLayout class="contact">
+  <DefaultLayout
+    class="contact"
+    hide-footer
+  >
     <template #header>
       <TopBar
         title="Edit user"

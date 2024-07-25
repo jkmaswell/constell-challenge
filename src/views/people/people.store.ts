@@ -37,6 +37,14 @@ export const usePeopleStore = defineStore('people', () => {
     selectedContact.value = people.value?.find((c: Contact) => c?.id === id) || INIT_VALUES
   }
 
+  // Updaters
+  const updateContact =  async (payload: Contact): Promise<void> => {
+    const { id } = payload
+
+    await axios.put(`/contacts/${id}`, payload)
+    await getPeople()
+  }
+
   // Deleters
   const deletePersonFromVenue = async (id: string): Promise<void> => {
     await axios.delete(`contacts/${id}`)
@@ -53,6 +61,7 @@ export const usePeopleStore = defineStore('people', () => {
     getPeople,
     getPeopleFromVenue, 
     getContact,
+    updateContact,
     deletePersonFromVenue,
   }
 })

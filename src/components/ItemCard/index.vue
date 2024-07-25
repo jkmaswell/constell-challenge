@@ -63,7 +63,12 @@ const props = defineProps<Props>()
     }
   }
 
+  @media (width <= 64rem) {
+    block-size: 4.75rem;
+  }
+
   @media (width <= 37.5rem) {
+    block-size: 4.5rem;
     inline-size: 100%;
   }
 }

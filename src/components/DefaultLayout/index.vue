@@ -1,3 +1,12 @@
+<script setup lang="ts">
+interface Props {
+  hideFooter: boolean
+}
+
+// Props
+const props = defineProps<Props>()
+</script>
+
 <template>
   <div class="layout">
     <aside class="layout__sidenav">
@@ -11,7 +20,10 @@
         <slot />
       </div>
     </main>
-    <footer class="layout__footer">
+    <footer
+      v-if="!props?.hideFooter"
+      class="layout__footer"
+    >
       <MobileNavbar />
     </footer>
   </div>
@@ -37,6 +49,7 @@
   // Main
   &__main {
     flex: 2;
+    transform: scale(1);
   }
 
   // Content
@@ -45,6 +58,10 @@
     block-size: calc(100% - 3.5rem);
     padding-block: 2rem;
     padding-inline: 3rem;
+
+    @media (width <= 64rem) {
+      padding-inline: 2rem;
+    }
 
     @media (width <= 37.5rem) {
       padding-block-end: 8rem;

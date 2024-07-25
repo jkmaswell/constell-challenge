@@ -2,15 +2,27 @@
 import { usePeopleStore } from '@/views/people/people.store'
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 // Composables
 const route = useRoute()
+const router = useRouter()
 const peopleStore = usePeopleStore()
 
 const params = route.params as { id: string }
 const { selectedContact } = storeToRefs(peopleStore)
 
+// Methods
+const goBack = () => {
+  router.back()
+}
+
+const saveChanges = async () => {
+  await peopleStore.updateContact(selectedContact.value)
+  goBack()
+}
+
+// Hooks
 onMounted(async () => {
   await peopleStore.getContact(params?.id)
 })
@@ -49,6 +61,7 @@ onMounted(async () => {
             type="text"
             name="initials"
             label="Initials"
+            validation="required"
           />
         </div>
         <div class="contact-detail__row">
@@ -69,7 +82,7 @@ onMounted(async () => {
             label="Role"
           />
         </div>
-        <div class="contact-detail__row">
+        <div class="contact-detail__row contact-detail__row--column-mobile">
           <FormKit
             id="email"
             v-model="selectedContact.email"
@@ -85,6 +98,7 @@ onMounted(async () => {
             type="tel"
             name="phoneNumber"
             label="Phone Number"
+            validation="matches:/^[0-9]{1}[0-9]{3}[0-9]{2}[0-9]{2}$/"
           >
             <template #prefix>
               <div class="contact-detail__country">
@@ -139,12 +153,14 @@ onMounted(async () => {
             <FormKit
               type="button"
               label="Cancel"
+              @click="goBack"
             />
           </div>
           <div class="contact-detail__button contact-detail__button--save">
             <FormKit
               type="button"
               label="Save changes"
+              @click="saveChanges"
             />
           </div>
         </div>
@@ -186,6 +202,15 @@ onMounted(async () => {
       inset-inline-start: calc(100% - 1.25rem);
 
     }
+
+    @media (width <= 64rem) {
+      margin-inline: 0 3rem;
+    }
+
+    @media (width <= 37.5rem) {
+      margin-block: 0;
+      margin-inline: auto;
+    }
   }
 
   // Form
@@ -198,6 +223,10 @@ onMounted(async () => {
       flex-direction: column;
       gap: 2rem;
     }
+
+    @media (width <= 37.5rem) {
+      padding-block: 1.5rem;
+    }
   }
 
   // Row
@@ -208,12 +237,17 @@ onMounted(async () => {
 
     // Inner Form
     :deep(.formkit-outer) {
+      position: relative;
       flex: 1;
 
       .formkit-label {
         margin: 0;
         font-size: .875rem;
         line-height: 1.8;
+
+        @media (width <= 64rem) {
+          font-size: .75rem;
+        }
       }
 
       .formkit-inner {
@@ -222,7 +256,10 @@ onMounted(async () => {
       }
 
       .formkit-messages {
+        position: absolute;
         padding: 0;
+        inset-block-end: -1.5rem;
+        inset-inline-start: 0;
         list-style: none;
         margin-block: 0.5rem 0;
         margin-inline: 0;
@@ -248,11 +285,22 @@ onMounted(async () => {
         &:focus, &:focus-visible {
           background: var(--secondary);
         }
+
+        @media (width <= 64rem) {
+          font-size: .875rem;
+        }
       }
     }
 
     &--column {
       flex-direction: column;
+    }
+
+    &--column-mobile {
+      @media (width <= 37.5rem) {
+        flex-direction: column;
+        gap: 2rem;
+      }
     }
 
     &--end {
@@ -261,6 +309,25 @@ onMounted(async () => {
 
       :deep(.formkit-outer) {
         flex: none;
+      }
+
+      @media (width <= 64rem) {
+        position: fixed;
+        align-items: center;
+        justify-content: space-around;
+        background: var(--tertiary);
+        block-size: 7.75rem;
+        border-block-start: .0625rem solid var(--border);
+        inline-size: 100%;
+        inset-block-end: 0;
+        inset-inline-end: 0;
+        padding-inline: 3rem;
+      }
+
+      @media (width <= 37.5rem) {
+        z-index: 2;
+        block-size: 4.5rem;
+        padding-inline: 1rem;
       }
     }
   }
@@ -274,6 +341,16 @@ onMounted(async () => {
       font-size: .875rem;
       font-weight: 500;
       inline-size: 11.125rem;
+
+      @media (width <= 64rem) {
+        font-size: .75rem;
+        inline-size: 100%;
+      }
+
+      @media (width <= 37.5rem) {
+        padding-block: 0.8rem;
+        padding-inline: 1rem;
+      }
     }
 
     &--cancel {
@@ -288,6 +365,10 @@ onMounted(async () => {
         color: var(--secondary);
       }
     }
+
+    @media (width <= 64rem) {
+      flex: 1;
+    }
   }
 
   // Country
@@ -300,9 +381,18 @@ onMounted(async () => {
     border: .0625rem solid var(--border);
     border-radius: .25rem;
     background: var(--secondary);
+    gap: 0.3rem;
     inline-size: 5rem;
     margin-inline-end: -0.25rem;
     min-block-size: 100%;
+
+    @media (width <= 64rem) {
+      font-size: .875rem;
+    }
+  }
+
+  @media (width <= 37.5rem) {
+    flex-direction: column;
   }
 }
 </style>
