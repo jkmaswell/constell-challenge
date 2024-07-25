@@ -2,9 +2,10 @@
 import logo from '@/assets/images/logo.svg'
 import { ref } from 'vue'
 import MenuItem from './MenuItem.vue'
+import type { Item } from './types'
 
 // Constants
-const menu = ref<{ id: string, label: string, icon: string, hover: boolean}[]>([
+const menu = ref<Item[]>([
   {
     id: 'home',
     label: 'Today',
@@ -37,13 +38,15 @@ const menu = ref<{ id: string, label: string, icon: string, hover: boolean}[]>([
   },
 ])
 
-const footerMenu = ref<{ label: string, icon: string, hover: boolean}[]>([
+const footerMenu = ref<Item[]>([
   {
+    id: 'search',
     label: 'Search',
     icon: 'search',
     hover: false,
   },
   {
+    id: 'info',
     label: 'Today',
     icon: 'info',
     hover: false,

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { isEmpty } from 'lodash-es'
 import { onMounted, ref, watch } from 'vue'
-import type { MenuItem } from './types'
+import type { Item } from './types'
 
 interface Props {
-  item: MenuItem
+  item: Item
   openNav: boolean
 }
 
@@ -12,14 +12,15 @@ interface Props {
 const props = defineProps<Props>()
 
 // Data
-const itemModel = ref<MenuItem>({
+const itemModel = ref<Item>({
+  id: '',
   label: '',
   icon: '',
   hover: false,
 })
 
 // Watchers
-watch(() => props?.item, (nVal: MenuItem) => {
+watch(() => props?.item, (nVal: Item) => {
   if (nVal) {
     itemModel.value = nVal
   }
