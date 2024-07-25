@@ -9,5 +9,12 @@ npm run serve
 # Run Frontend in another terminal
 npm i && npm run dev
 ```
+## Instructions
 
-Project developed by Juan Camilo Isaza
+First run the server, then run the project.
+
+To visualize the project open it in `http://localhost:5173`
+To visualize the server oepn it in `http://locahlhost:3000`
+
+
+Project developed by Juan Camilo Isaza.
